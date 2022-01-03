@@ -36,25 +36,4 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          
-      # Install Salesforce CLI
-      - name: 'Install Salesforce CLI'
-        run: |
-          wget https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz
-          mkdir ~/sfdx
-          tar xJf sfdx-linux-x64.tar.xz -C ~/sfdx --strip-components 1
-          echo "$HOME/sfdx/bin" >> $GITHUB_PATH
-          ~/sfdx/bin/sfdx version
-          
-      # Assign secret to variable
-      - name: 'Assign targerSecret to variable'
-        shell: bash
-        run: echo ${{secrets.TARGET_PLAYGROUND}} > SFDX_QA
-        
-      # Authenticate Org
-      - name: 'Authenticate org'
-        run: node_modules/sfdx-cli/bin/run force:auth:sfdxurl:store -f SFDX_QA -s -a TargetPlaygroundAlias
 
-      # Deploy Attemps (Validate Only)
-      - name: 'CI Valdation'
-        run: node_modules/sfdx-cli/bin/run sfdx force:source:deploy -p force-app -c -l RunLocalTests -u TargetPlaygrounAlias --json
