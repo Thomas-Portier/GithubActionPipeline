@@ -43,3 +43,4 @@ $RECYCLE.BIN/
 /IlluminatedCloud/
 /out/
 target/
+/package-lock.json
